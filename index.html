@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIOpsSuite // IT Operations, at Machine Speed</title>
+<meta name="description" content="AIOpsSuite is the all-in-one AIOps platform: it turns the flood of telemetry from your entire stack into one correlated incident, a probable root cause, and a fix.">
+<style>
+  :root{
+    --bg:#f7f8fa; --panel:#ffffff; --line:#e2e6ec;
+    --text:#3d4654; --bright:#0b1220; --dim:#7a8494;
+    --accent:#2563eb; --accent-dark:#1d4ed8; --accent-soft:#e8eefc;
+    --ok:#0e8a5f; --warn:#b45309;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    --mono:"SF Mono",Menlo,Consolas,"Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 1.5rem}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;gap:1rem;flex-wrap:wrap}
+  .logo{font-weight:800;letter-spacing:-.02em;color:var(--bright);font-size:1.25rem}
+  .logo span{color:var(--accent)}
+  .navlinks{display:flex;gap:1.5rem;font-size:.9rem}
+  .navlinks a{color:var(--text);text-decoration:none}
+  .navlinks a:hover{color:var(--accent)}
+  .btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:.7rem 1.3rem;border-radius:8px;font-weight:600;font-size:.95rem}
+  .btn:hover{background:var(--accent-dark)}
+  .btn.ghost{background:transparent;color:var(--bright);border:1px solid var(--line)}
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center;padding:4rem 0 3rem}
+  @media(max-width:860px){.hero{grid-template-columns:1fr}}
+  .eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+  h1{color:var(--bright);font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.05;letter-spacing:-.03em;margin-bottom:1.2rem}
+  h1 span{color:var(--accent)}
+  .lead{font-size:1.15rem;max-width:520px;margin-bottom:1.6rem}
+  .cta-row{display:flex;gap:.8rem;flex-wrap:wrap}
+  .mock{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 40px rgba(11,18,32,.08);overflow:hidden}
+  .mock-head{display:flex;justify-content:space-between;align-items:center;padding:.9rem 1.2rem;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.78rem;color:var(--dim)}
+  .mock-head b{color:var(--bright)}
+  .mock-body{padding:1.2rem}
+  .group{display:flex;align-items:center;gap:1rem;background:var(--accent-soft);border-radius:10px;padding:.9rem 1rem;margin-bottom:1rem}
+  .group .n{font-size:1.6rem;font-weight:800;color:var(--accent);line-height:1}
+  .group p{font-size:.85rem;line-height:1.4}
+  .group p b{color:var(--bright)}
+  .row{display:flex;justify-content:space-between;gap:1rem;padding:.6rem 0;border-bottom:1px solid var(--line);font-size:.88rem}
+  .row:last-child{border-bottom:none}
+  .row .k{color:var(--dim)}
+  .row .v{color:var(--bright);font-weight:600;text-align:right}
+  .pill{display:inline-block;font-size:.72rem;font-weight:700;padding:.15rem .5rem;border-radius:999px}
+  .pill.ok{background:#e3f4ec;color:var(--ok)}
+  .pill.warn{background:#fdf0dc;color:var(--warn)}
+  .bars{display:flex;align-items:flex-end;gap:6px;height:64px;margin-top:.8rem}
+  .bars i{display:block;flex:1;background:var(--accent);border-radius:3px 3px 0 0;opacity:.85}
+  .caption{font-size:.75rem;color:var(--dim);text-align:center;margin-top:1rem}
+  h2{color:var(--bright);font-size:1.7rem;letter-spacing:-.02em;margin:4rem 0 .6rem}
+  .sub{font-size:1.05rem;max-width:680px;margin-bottom:2rem}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+  @media(max-width:860px){.grid3,.grid2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.4rem}
+  .card h3{color:var(--bright);font-size:1rem;margin-bottom:.4rem}
+  .card p{font-size:.92rem}
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.4rem}
+  .step .no{font-family:var(--mono);color:var(--accent);font-weight:700;margin-bottom:.3rem}
+  .step h3{color:var(--bright);font-size:1rem;margin-bottom:.4rem}
+  .step p{font-size:.92rem}
+  .compare{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .crow{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+  .crow:last-child{border-bottom:none}
+  .crow>div{padding:1rem 1.2rem;font-size:.92rem}
+  .crow .old{color:var(--dim)}
+  .crow .new{color:var(--bright);background:var(--accent-soft)}
+  .crow.head>div{font-weight:700;color:var(--bright);font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+  .faq{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.4rem;margin-bottom:1rem}
+  .faq h3{color:var(--bright);font-size:1rem;margin-bottom:.4rem}
+  .faq p{font-size:.92rem}
+  .cta{background:var(--bright);border-radius:16px;padding:3rem 2rem;text-align:center;margin-top:4rem}
+  .cta h2{color:#fff;margin:0 0 .6rem}
+  .cta p{color:#b9c2d0;max-width:520px;margin:0 auto 1.6rem}
+  .cta form{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
+  .cta input{padding:.7rem 1rem;border-radius:8px;border:1px solid #33415c;background:#131f33;color:#fff;min-width:220px;font-size:.95rem}
+  .cta .note{font-size:.78rem;color:#8b96a8;margin-top:1rem}
+  footer{padding:2rem 0 3rem;font-size:.82rem;color:var(--dim);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <div class="logo">AIOps<span>Suite</span></div>
+    <div class="navlinks">
+      <a href="#platform">Platform</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a class="btn" href="#access">Request access</a>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">AI for IT Operations</p>
+      <h1>47 alerts.<br>One incident.<br><span>Zero guessing.</span></h1>
+      <p class="lead">AIOpsSuite turns the flood of telemetry from your entire stack — logs, metrics, traces, tickets — into one correlated incident, a probable root cause, and a fix. Before your customers notice.</p>
+      <div class="cta-row">
+        <a class="btn" href="#access">Request access</a>
+        <a class="btn ghost" href="#how">See how it works</a>
+      </div>
+    </div>
+    <div>
+      <div class="mock">
+        <div class="mock-head"><span><b>Incident #4821</b> · Checkout latency</span><span>us-east-1</span></div>
+        <div class="mock-body">
+          <div class="group">
+            <div class="n">47→1</div>
+            <p><b>47 alerts correlated into 1 incident.</b> Same service, same window, same failing dependency — grouped, not stacked.</p>
+          </div>
+          <div class="row"><span class="k">Probable root cause</span><span class="v">DB connection pool saturation</span></div>
+          <div class="row"><span class="k">Suggested action</span><span class="v">Scale read replicas <span class="pill warn">needs approval</span></span></div>
+          <div class="row"><span class="k">Auto-action taken</span><span class="v">Traffic shifted off degraded node <span class="pill ok">done</span></span></div>
+          <div class="bars">
+            <i style="height:30%"></i><i style="height:45%"></i><i style="height:35%"></i><i style="height:60%"></i><i style="height:100%"></i><i style="height:55%"></i><i style="height:40%"></i><i style="height:25%"></i><i style="height:30%"></i><i style="height:20%"></i>
+          </div>
+          <p style="font-size:.78rem;color:var(--dim);text-align:center">Alert volume, last 24h — the spike is the incident, not 47 incidents.</p>
+        </div>
+      </div>
+      <p class="caption">Concept illustration — what one incident looks like inside the suite.</p>
+    </div>
+  </section>
+
+  <h2>What is AIOps?</h2>
+  <p class="sub">AIOps — artificial intelligence for IT operations, a term Gartner defined in 2016 — applies machine learning and big-data analytics to the enormous volumes of data IT environments already emit. It is a shift from isolated data in separate tools to one aggregated picture: observational data (logs, metrics, traces) joined with interaction data (events, tickets, incidents), analyzed continuously, with automation on top.</p>
+
+  <h2>The old way vs. the suite way</h2>
+  <div class="compare">
+    <div class="crow head"><div>The old way</div><div>The suite way</div></div>
+    <div class="crow"><div class="old">Every tool fires its own alerts. The on-call engineer triages a wall of noise at 3 a.m.</div><div class="new">Events correlate across every source into one incident with one timeline.</div></div>
+    <div class="crow"><div class="old">Teams chase symptoms across dashboards, guessing at the cause while the clock runs.</div><div class="new">A probable root cause, ranked against the evidence, with the fix attached.</div></div>
+    <div class="crow"><div class="old">The same outage repeats next quarter because the lesson lived in someone&rsquo;s head.</div><div class="new">Every incident teaches the system: baselines adapt, runbooks improve, the next one is faster.</div></div>
+  </div>
+
+  <h2 id="platform">One suite, every layer of the problem</h2>
+  <p class="sub">Point tools each solve one slice. The suite covers the loop end to end — and because it sees every domain (network, storage, security, application) in one data model, it catches the incidents that live between domains.</p>
+  <div class="grid3">
+    <div class="card">
+      <h3>Ingest everything</h3>
+      <p>Logs, metrics, traces, events, and tickets from the tools you already run — aggregated into one platform instead of five consoles.</p>
+    </div>
+    <div class="card">
+      <h3>Separate signal from noise</h3>
+      <p>Event correlation groups related alerts into a single incident, so engineers work the problem instead of the queue.</p>
+    </div>
+    <div class="card">
+      <h3>Detect anomalies early</h3>
+      <p>Baselines learned from your history flag the deviation before it becomes the outage — including the ones no static threshold would catch.</p>
+    </div>
+    <div class="card">
+      <h3>Diagnose the root cause</h3>
+      <p>Causality analysis traces the incident back to its source instead of its loudest symptom, so the fix lands on the right thing.</p>
+    </div>
+    <div class="card">
+      <h3>Automate remediation — with a gate</h3>
+      <p>Runbooks execute routine fixes on their own. Consequential changes — scaling, failover, data-touching actions — wait for a human&rsquo;s approval. Automation, not abdication.</p>
+    </div>
+    <div class="card">
+      <h3>Predict what&rsquo;s next</h3>
+      <p>Predictive analytics on historical patterns: capacity pressure, likely failures, and the incident that hasn&rsquo;t happened yet but is trending that way.</p>
+    </div>
+  </div>
+
+  <h2 id="how">How it works</h2>
+  <div class="grid3">
+    <div class="step">
+      <div class="no">01 · OBSERVE</div>
+      <h3>Collect it all</h3>
+      <p>Telemetry streams in from every layer of the stack and is aggregated in real time. No rip-and-replace: the suite sits on top of the monitoring you already own.</p>
+    </div>
+    <div class="step">
+      <div class="no">02 · ENGAGE</div>
+      <h3>One incident, fully enriched</h3>
+      <p>Correlation, anomaly detection, and root-cause analysis turn raw events into a single incident record — cause, evidence, and recommended fix — routed to the right team.</p>
+    </div>
+    <div class="step">
+      <div class="no">03 · ACT</div>
+      <h3>Fix it, within guardrails</h3>
+      <p>Automated responses resolve what&rsquo;s routine and escalate what&rsquo;s consequential. Every action is logged, so the incident record is also the audit trail.</p>
+    </div>
+  </div>
+
+  <h2>Why a suite — and why now</h2>
+  <p class="sub">Modern estates are hybrid and multi-cloud, stitched from microservices and APIs whose dependencies change faster than anyone can document. That complexity is exactly what AIOps was defined to handle. Industry analyses cited on Wikipedia report mean-time-to-detect improvements of 15–20% and critical-incident reductions of over 50% from AI-driven end-to-end service management — the prize for getting this right is measured in outages that never reach customers.</p>
+
+  <h2 id="faq">Questions, answered straight</h2>
+  <div class="faq">
+    <h3>Does it replace our monitoring tools?</h3>
+    <p>No. It sits on top of them. Your existing tools keep collecting; the suite aggregates, correlates, and acts on what they emit. Rip-and-replace is how AIOps projects die.</p>
+  </div>
+  <div class="faq">
+    <h3>Does it fix things on its own?</h3>
+    <p>Routine fixes, yes — within runbooks you approve. Consequential changes wait for a human. A person oversees and validates the model&rsquo;s conclusions, and the system keeps the record either way.</p>
+  </div>
+  <div class="faq">
+    <h3>How is this different from DevOps or MLOps?</h3>
+    <p>DevOps accelerates software delivery; MLOps manages the lifecycle of machine-learning models. AIOps operates the systems themselves — detecting, diagnosing, and resolving what happens in production. They complement each other; none replaces the others.</p>
+  </div>
+  <div class="faq">
+    <h3>What data does it need?</h3>
+    <p>What you already have: system logs and metrics, network data, real-time operations events, historical performance data, and incident and ticketing records. The suite&rsquo;s first job is making that data work together.</p>
+  </div>
+
+  <section class="cta" id="access">
+    <h2>Put your operations on rails.</h2>
+    <p>Request access and we&rsquo;ll show you what your last month of incidents looks like as one correlated picture — before you commit to anything.</p>
+    <form onsubmit="return false;">
+      <input type="email" placeholder="Work email" aria-label="Work email">
+      <input type="text" placeholder="Company" aria-label="Company">
+      <button class="btn" type="submit">Request access</button>
+    </form>
+    <p class="note">Concept page — this form is a preview and doesn&rsquo;t submit yet.</p>
+  </section>
+
+  <footer>
+    <span>AIOpsSuite · Product concept draft</span>
+    <span>AIOps is an industry term defined by Gartner (2016); the platform described here is a concept, not a shipping product</span>
+  </footer>
+
+</div>
+</body>
+</html>
